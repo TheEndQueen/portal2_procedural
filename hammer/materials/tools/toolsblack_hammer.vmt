@@ -1,0 +1,6 @@
+UnlitGeneric
+{
+$basetexture "tools/toolsblack_hammer"
+"%compileNoLight" 1
+"%noportal" 1
+}
