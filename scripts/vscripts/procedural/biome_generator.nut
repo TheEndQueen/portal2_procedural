@@ -19,11 +19,96 @@ function dot(vec1, vec2) {
 function step(x) {
     return x >= 0 ? 1 : 0
 }
-function vec3(x, y, z) {
-    return [x, y, z]
+class vec3 { //AI :(
+    x = 0.0;
+    y = 0.0;
+    z = 0.0;
+
+    constructor(_x, _y, _z) {
+        x = _x.tofloat();
+        y = _y.tofloat();
+        z = _z.tofloat();
+    }
+
+    // The metamethod that enables swizzling
+    function _get(key) {
+        // Only swizzle for strings between 2 and 4 characters
+        if (typeof key == "string" && key.len() >= 2 && key.len() <= 4) {
+            local result = [];
+            local valid = true;
+
+            // Map characters to their corresponding properties
+            for (local i = 0; i < key.len(); i++) {
+                local char = key[i]; // Gets ASCII value
+                if (char == 'x')      result.append(x);
+                else if (char == 'y') result.append(y);
+                else if (char == 'z') result.append(z);
+                else {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid) {
+                // Return appropriate vector type based on length
+                if (result.len() == 3) {
+                    return ::vec3(result[0], result[1], result[2]);
+                }
+                
+                return result; // Fallback to an array if type isn't defined
+            }
+        }
+        
+        throw null; // Pass through to standard error handling if property doesn't exist
+    }
+
+    function _tostring() {
+        return "vec3(" + x + ", " + y + ", " + z + ")";
+    }
 }
-function vec4(x, y, z, w) {
-    return [x, y, z, w]
+class vec4 { //AI :(
+    x = 0.0;
+    y = 0.0;
+    z = 0.0;
+    w = 0.0;
+
+    constructor(_x = 0.0, _y = 0.0, _z = 0.0, _w = 0.0) {
+        x = _x.tofloat();
+        y = _y.tofloat();
+        z = _z.tofloat();
+        w = _w.tofloat();
+    }
+
+    // Metamethod intercepting property access for undefined fields
+    function _get(key) {
+        if (typeof key == "string" && key.len() > 1) {
+            local components = [];
+            
+            // Map each character in the swizzle mask back to its field value
+            for (local i = 0; i < key.len(); i++) {
+                local ch = key[i].tochar();
+                if (ch == "x") components.append(x);
+                else if (ch == "y") components.append(y);
+                else if (ch == "z") components.append(z);
+                else if (ch == "w") components.append(w);
+                else throw "Invalid swizzle component: " + ch; 
+            }
+            
+            // Instantiate a new vector with the reordered components
+            // Pad missing fields with 0.0 up to 4 components
+            while (components.len() < 4) {
+                components.append(0.0);
+            }
+            
+            return ::vec4(components[0], components[1], components[2], components[3]);
+        }
+        
+        throw null; // Fallback for standard property behavior
+    }
+
+    function _tostring() {
+        return "vec4(" + x + ", " + y + ", " + z + ", " + w + ")";
+    }
 }
 function mod289v3(vec3) {
   return [
