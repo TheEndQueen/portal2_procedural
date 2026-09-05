@@ -3,11 +3,6 @@
 //control
 //weirdness
 
-//required for VScript
-function Think() {
-
-}
-
 function dot(vec1, vec2) {
     local result = 0
     
