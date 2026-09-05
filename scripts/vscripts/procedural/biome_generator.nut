@@ -1,5 +1,5 @@
 //Biome Factors:
-//height
+//depth
 //control
 //weirdness
 
@@ -226,7 +226,20 @@ function create_biomes(seed) {
         set_seed = seed
         set_seed2 = (set_seed * 346368023 + 972933077) % 2147483648
     }
-    height = array(5000, 1)
+    depth = array(5000, 1)
     control = noise(set_seed)
     weirdness = noise(set_seed2)
+    depth_case == 0
+    if(depth <= 1000) { //Depth of Facility, in meters
+        depth_case == 1
+    } else if(depth > 1000 && depth <= 2000) {
+        depth_case == 2
+    } else if(depth > 2000 && depth <= 2100) {
+        depth_case == 3
+    } else if(depth > 2100 && depth <= 5000) {
+        depth_case == 4
+    } else {
+        return null
+    }
+    if (depth_case == 1, control)
 }
