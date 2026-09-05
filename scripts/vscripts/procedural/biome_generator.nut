@@ -220,3 +220,13 @@ function noise(P) {
     float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x); 
     return 2.2 * n_xyz;
 }
+//Sample Seed: 1721038224
+function create_biomes(seed) {
+    if (seed != null) {
+        set_seed = seed
+        set_seed2 = (set_seed * 346368023 + 972933077) % 2147483648
+    }
+    height = array(5000, 1)
+    control = noise(set_seed)
+    weirdness = noise(set_seed2)
+}
