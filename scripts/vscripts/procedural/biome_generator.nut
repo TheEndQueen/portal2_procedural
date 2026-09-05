@@ -231,7 +231,7 @@ function create_biomes(seed) {
     control = noise(set_seed)
     weirdness = noise(set_seed2)
     is_test_track = noise(set_seed3)
-    biome = null
+    biome <- none
     if (depth <= 1000) { //Depth of Facility, in meters
         if (control <= -0.25) {
             if (is_test_track < 0) { //Overgrown
@@ -307,11 +307,25 @@ function create_biomes(seed) {
     ///////////////
     //UNDERGROUND//
     ///////////////
-    } else if (depth > 2100 && depth <= 5000) { 
+    } else { 
         if (control <= -0.14) {
-            
+            biome == tartaros
+        } else if (control > -0.14 && control <= 0.74) {
+            if (is_test_track < -0.15) {
+                biome == under_office
+            } else {
+                biome == art_therapy
+            }
+        } else {
+            if (is_test_track < -0.2) {
+                biome == under_office
+            } else {
+                if (weirdness < -0.7) {
+                    biome == under_test_cave //Chamber akin to Portal: Revolution Chapter 6
+                } else {
+                    biome == under_test_sphere
+                }
+            }
         }
-    } else {
-        return null
     }
 }
