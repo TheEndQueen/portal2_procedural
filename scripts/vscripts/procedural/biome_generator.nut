@@ -229,9 +229,14 @@ function create_biomes(seed) {
     depth = array(5000, 1)
     control = noise(set_seed)
     weirdness = noise(set_seed2)
-    depth_case == 0
     if(depth <= 1000) { //Depth of Facility, in meters
-        depth_case == 1
+        if (control <= -0.25) {
+            if (weirdness > 0.8 || weirdness < -0.8) {
+                biome == ovg_bts
+            } else {
+                biome == ovg_test
+            }
+    }
     } else if(depth > 1000 && depth <= 2000) {
         depth_case == 2
     } else if(depth > 2000 && depth <= 2100) {
@@ -241,5 +246,4 @@ function create_biomes(seed) {
     } else {
         return null
     }
-    if (depth_case == 1, control)
 }
