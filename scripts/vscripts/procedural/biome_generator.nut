@@ -312,13 +312,35 @@ function create_biomes(seed) {
                 biome == art_therapy
             }
         } else {
-            if (is_test_track < -0.2) {
-                biome == under_office
-            } else {
-                if (weirdness < -0.7) {
-                    biome == under_test_cave //Chamber akin to Portal: Revolution Chapter 6
+            if (depth <= 3200) {
+                if (is_test_track < -0.2) {
+                    biome == 80s_office
                 } else {
-                    biome == under_test_sphere
+                    if (weirdness < -0.7) {
+                        biome == 80s_test_cave //Chamber akin to Portal: Revolution Chapter 6
+                    } else {
+                        biome == 80s_test_sphere
+                    }
+                } else if (depth > 3200 && depth <= 3975) {
+                    if (is_test_track < -0.2) {
+                        biome == 70s_office
+                    } else {
+                        if (weirdness < -0.7) {
+                            biome == 70s_test_cave //Chamber akin to Portal: Revolution Chapter 6
+                        } else {
+                            biome == 70s_test_sphere
+                        }
+                        } else {
+                            if (is_test_track < -0.2) {
+                            biome == 50s_office
+                        } else {
+                            if (weirdness < -0.7) {
+                                biome == 50s_test_cave //Chamber akin to Portal: Revolution Chapter 6
+                            } else {
+                                biome == 50s_test_sphere
+                            }
+                        }
+                    }
                 }
             }
         }
