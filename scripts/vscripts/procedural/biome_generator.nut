@@ -232,38 +232,85 @@ function create_biomes(seed) {
     weirdness = noise(set_seed2)
     is_test_track = noise(set_seed3)
     biome = null
-    if(depth <= 1000) { //Depth of Facility, in meters
+    if (depth <= 1000) { //Depth of Facility, in meters
         if (control <= -0.25) {
             if (is_test_track < 0) { //Overgrown
-                biome == ovg_bts
+                if (weirdness >= 0.8) {
+                    biome == ovg_office
+                } else {
+                    biome == ovg_bts
+                }
             } else {
                 biome == ovg_test
             }
         } else if (control > -0.25 && control <= 0.34) {
             if (is_test_track < 0) { //Reconstructing
-                biome == reconstruct_bts
+                if (weirdness >= 0.8) {
+                    biome == reconstruct_office
+                } else {
+                    biome == reconstruct_bts
+                }
             } else {
                 biome == reconstruct_test
             }
         } else {
             if (is_test_track < 0) { //Clean
-                biome == clean_bts
+                if (weirdness >= 0.8) {
+                    biome == clean_office
+                } else {
+                    biome == clean_bts
+                }
             } else {
                 biome == clean_test
             }
         }
-    } else if(depth > 1000 && depth <= 2000) {
+    } else if (depth > 1000 && depth <= 2000) {
         if (control <= -0.47) {
             if (is_test_track < 0) { //Destroyed
-                biome == desytroyed_bts
+                if (weirdness >= 0.8) {
+                    biome == destroyed_office
+                } else {
+                    biome == destroyed_bts
+                }
             } else {
                 biome == destroyed_test
             }
+        } else if (control > -0.47 && control <= 0.38) {
+            if (is_test_track < 0) { //Clean
+                if (weirdness >= 0.8) {
+                    biome == clean_office
+                } else {
+                    biome == clean_bts
+                }
+            } else {
+                biome == clean_test
+            }
+        } else {
+            if (weirdness >= 0.7) { //Clean + Wheatley
+                if (is_test_track < 0) {
+                    biome == wheatley_bts
+                } else {
+                    biome == wheatley_test
+                }
+            } else if (is_test_track < 0) { //Clean
+                if (weirdness >= 0.8) {
+                    biome == clean_office
+                } else {
+                    biome == clean_bts
+                }
+            } else {
+                biome == clean_test
+            }
         }
-    } else if(depth > 2000 && depth <= 2100) {
-        depth_case == 3
-    } else if(depth > 2100 && depth <= 5000) {
-        depth_case == 4
+    } else if (depth > 2000 && depth <= 2100) {
+        biome == transition
+    ///////////////
+    //UNDERGROUND//
+    ///////////////
+    } else if (depth > 2100 && depth <= 5000) { 
+        if (control <= -0.14) {
+            
+        }
     } else {
         return null
     }
