@@ -225,20 +225,41 @@ function create_biomes(seed) {
     if (seed != null) {
         set_seed = seed
         set_seed2 = (set_seed * 346368023 + 972933077) % 2147483648
+        set_seed3 = (set_seed * 972933077 + 346368023) % 2147483648
     }
     depth = array(5000, 1)
     control = noise(set_seed)
     weirdness = noise(set_seed2)
+    is_test_track = noise(set_seed3)
+    biome = null
     if(depth <= 1000) { //Depth of Facility, in meters
         if (control <= -0.25) {
-            if (weirdness > 0.8 || weirdness < -0.8) {
+            if (is_test_track < 0) { //Overgrown
                 biome == ovg_bts
             } else {
                 biome == ovg_test
             }
-    }
+        } else if (control > -0.25 && control <= 0.34) {
+            if (is_test_track < 0) { //Reconstructing
+                biome == reconstruct_bts
+            } else {
+                biome == reconstruct_test
+            }
+        } else {
+            if (is_test_track < 0) { //Clean
+                biome == clean_bts
+            } else {
+                biome == clean_test
+            }
+        }
     } else if(depth > 1000 && depth <= 2000) {
-        depth_case == 2
+        if (control <= -0.47) {
+            if (is_test_track < 0) { //Destroyed
+                biome == desytroyed_bts
+            } else {
+                biome == destroyed_test
+            }
+        }
     } else if(depth > 2000 && depth <= 2100) {
         depth_case == 3
     } else if(depth > 2100 && depth <= 5000) {
